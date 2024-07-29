@@ -1,0 +1,14 @@
+# Ignorar archivos de log
+*.log
+
+# Ignorar la base de datos SQLite en la carpeta instance
+instance/quotes.db
+
+# Ignorar cachés y archivos de Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar archivos de entorno
+.env

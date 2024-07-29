@@ -17,11 +17,11 @@ logging.basicConfig(
     ]
 )
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quotes.db'
-db.init_app(app)
+app = Flask(__name__)   #crear la instancia de flask
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quotes.db' #configura dela URI de la base de datos
+db.init_app(app)    #
 
-BASE_URL = "https://quotes.toscrape.com"
+BASE_URL = "https://quotes.toscrape.com" 
 
 # Crear una sesión global para reutilizar conexiones HTTP
 SESSION = requests.Session()
@@ -107,7 +107,7 @@ def get_all_quotes():
     # Eliminar duplicados
     all_quotes = remove_duplicates(all_quotes)
     
-    # Usar ThreadPoolExecutor para obtener información de autores concurrentemente
+    # Usar ThreadPoolExecutor para obtener información de autores concurrentemente. Se encarga de obtener información adicional sobre los autores de las citas en paralelo
     with ThreadPoolExecutor(max_workers=10) as executor:
         future_to_quote = {executor.submit(get_author_info, '/author/' + '-'.join(quote['author'].split()) + '/'): quote for quote in all_quotes}
         for future in as_completed(future_to_quote):
